@@ -18,7 +18,7 @@
         Return (seconds / 60) / (distance / 1000)
     End Function
     Public Function GetSpeed() As Decimal
-        Return Converter.mps2kmph(distance / seconds)
+        Return Convert.mps2kmph(distance / seconds)
     End Function
     Public Sub OutputRun()
         Console.WriteLine("You ran " & distance / 1000 & " km in " & seconds / 60 & " Minutes")

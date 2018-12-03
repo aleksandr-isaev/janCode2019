@@ -55,7 +55,7 @@
         runCount += 1
     End Sub
     Public Sub RunAnalysis()
-        Dim goalSpeed As Double = Converter.mps2kmph(10000 / goalTenK)
+        Dim goalSpeed As Double = Convert.mps2kmph(10000 / goalTenK)
         Dim latestSpeed As Double = runs(runCount - 1).GetSpeed
         If goalSpeed > latestSpeed Then
             Console.WriteLine("You have not met your goal speed")
