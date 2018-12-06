@@ -14,7 +14,7 @@
     Public Function GetSeconds() As Integer
         Return seconds
     End Function
-    Public Function GetPace() As Integer 'wrong data type
+    Public Function GetPace() As Integer 'wrong data type - should be double
         Return (seconds / 60) / (distance / 1000)
     End Function
     Public Function GetSpeed() As Decimal
