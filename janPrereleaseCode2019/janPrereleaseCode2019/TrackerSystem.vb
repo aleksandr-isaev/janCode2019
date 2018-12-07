@@ -61,7 +61,7 @@
             Loop Until addedNumber = True
             Do
                 Try
-                    Console.WriteLine("Enter Your 10 Km goal time")
+                    Console.WriteLine("Enter Your 10 Km goal time (in seconds)")
                     newGoal = Console.ReadLine
                 Catch ex As Exception
                     MsgBox("Not entered an integer")
