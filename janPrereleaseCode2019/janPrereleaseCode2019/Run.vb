@@ -1,7 +1,6 @@
 ﻿Public Class Run
-
-    Private distance
-    Private seconds
+    Private distance As Integer
+    Private seconds As Integer
     Public Sub SetDistance(ByVal newValue As Integer)
         distance = newValue
     End Sub
@@ -17,7 +16,7 @@
     Public Function GetPace() As Double 'changed to double
         Return (seconds / 60) / (distance / 1000)
     End Function
-    Public Function GetSpeed() As Decimal
+    Public Function GetSpeed() As Double
         Return Convert.mps2kmph(distance / seconds)
     End Function
     Public Sub OutputRun()
