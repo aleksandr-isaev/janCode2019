@@ -41,9 +41,24 @@
         Dim newGoal As Integer
         Dim newPw As String
         Dim check As Boolean = False
+        Dim currentChar As Integer
+        Dim addedNumber As Boolean = True
+        Dim count As Integer = 0
+
+        Console.WriteLine("Enter Your Name")
         Do
-            Console.WriteLine("Enter Your Name")
-            newName = Console.ReadLine()
+            Do
+                newName = Console.ReadLine()
+                addedNumber = True
+                For x = 1 To Len(newName)
+                    currentChar = (Asc(Mid(newName, x, 1)))
+                    If currentChar > 47 And currentChar < 58 And count = 0 Then
+                        Console.WriteLine("You have entered an integer as part of your name. Please try again. ")
+                        count = count + 1
+                        addedNumber = False
+                    End If
+                Next
+            Loop Until addedNumber = True
             Do
                 Try
                     Console.WriteLine("Enter Your 10 Km goal time")
