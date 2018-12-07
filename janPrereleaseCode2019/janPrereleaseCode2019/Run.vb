@@ -1,5 +1,4 @@
 ﻿Public Class Run
-
     Private distance As Integer
     Private seconds As Integer
     Public Sub SetDistance(ByVal newValue As Integer)
