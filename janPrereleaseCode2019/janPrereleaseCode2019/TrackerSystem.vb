@@ -43,13 +43,20 @@
         Do
             Console.WriteLine("Enter Your Name")
             newName = Console.ReadLine()
-            Console.WriteLine("Enter Your 10 Km goal time")
-            newGoal = Console.ReadLine
+            Do
+                Try
+                    Console.WriteLine("Enter Your 10 Km goal time")
+                    newGoal = Console.ReadLine
+                Catch ex As Exception
+                    MsgBox("Not entered an integer")
+
+                End Try
+            Loop Until newGoal > 0
             Console.WriteLine("Enter Your Password")
-            newPw = Console.ReadLine
-            Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
-        Loop Until Accounts(AccountCount).GetName <> ""
-        AccountCount += 1
+                newPw = Console.ReadLine
+                Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
+            Loop Until Accounts(AccountCount).GetName <> ""
+            AccountCount += 1
     End Sub
     Public Sub AddNewRun()
         Dim foundLocation As Integer

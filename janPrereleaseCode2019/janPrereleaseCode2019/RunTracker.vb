@@ -50,8 +50,8 @@
         Console.WriteLine("Enter the TIME you ran, in seconds")
         value = Console.ReadLine()
         runs(runCount).SetSeconds(value)
-        runs(runCount).GetPace()
-        runs(runCount).GetSpeed()
+        'runs(runCount).GetPace() 'not needed and so deleted (on version 2)
+        'runs(runCount).GetSpeed()
         runCount += 1
     End Sub
     Public Sub RunAnalysis()
