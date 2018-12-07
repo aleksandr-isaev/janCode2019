@@ -44,14 +44,28 @@
     Public Sub AddRun()
         Dim value As Integer
         runs(runCount) = New Run()
-        Console.WriteLine("Enter the DISTANCE you ran, in meters")
-        value = Console.ReadLine()
+
+        Do
+            Try
+                Console.WriteLine("Enter the DISTANCE you ran, in meters")
+                value = Console.ReadLine()
+            Catch ex As Exception
+                MsgBox("Not entered a suitable answer. Please try again. ")
+            End Try
+        Loop Until Value > 0
         runs(runCount).SetDistance(value)
-        Console.WriteLine("Enter the TIME you ran, in seconds")
-        value = Console.ReadLine()
+
+        Do
+            Try
+                Console.WriteLine("Enter the TIME you ran, in seconds")
+                value = Console.ReadLine()
+            Catch ex As Exception
+                MsgBox("Not entered a suitable answer. Please try again. ")
+            End Try
+        Loop Until value > 0.0 And value < 60 * 60 * 80
         runs(runCount).SetSeconds(value)
-        runs(runCount).GetPace()
-        runs(runCount).GetSpeed()
+        'runs(runCount).GetPace() 'not needed and so deleted (on version 2)
+        'runs(runCount).GetSpeed()
         runCount += 1
     End Sub
     Public Sub RunAnalysis()
