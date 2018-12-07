@@ -22,6 +22,8 @@
                 OutputHistory()
             Case 4
                 TenKmGoal()
+            Case 5
+                Update()
             Case Else
                 Console.WriteLine("Not an Option")
         End Select
@@ -34,6 +36,7 @@
         Console.WriteLine("Choose 2 add a new run")
         Console.WriteLine("Choose 3 for your run history")
         Console.WriteLine("Choose 4 for your 10 km goal analysis")
+        Console.WriteLine("Choose 5 to update data")
         Console.WriteLine("Choose 0 to exit")
     End Sub
     Public Sub AddNewRunner()
@@ -50,7 +53,6 @@
                     newGoal = Console.ReadLine
                 Catch ex As Exception
                     MsgBox("Not entered an integer")
-
                 End Try
             Loop Until newGoal > 0
             Console.WriteLine("Enter Your Password")
@@ -148,5 +150,35 @@
         Console.WriteLine("Incorrect Username or password")
         Return -1
     End Function
+    Public Sub Update()
+        Dim newName As String
+        Dim newGoal As Integer
+        Dim choice As String
+        Dim nmCheck As Integer
+        Dim check As Boolean
+        Console.WriteLine("UPDATE DATA")
+        nmCheck = Verify()
+        If nmCheck > -1 Then
+            Console.WriteLine("Choose 1 to update name
+Choose 2 to update goal")
+            choice = Console.ReadLine()
+            Select Case choice
+                Case 1
+                    Console.WriteLine("Enter new name")
+                    check = Accounts(nmCheck).SetName(Console.ReadLine())
+                    If check = True Then
+                        Console.WriteLine("Name changed")
+                    End If
+                Case 2
+                    Console.WriteLine("Enter new goal")
+                    check = Accounts(nmCheck).SetGoalTenK(Console.ReadLine())
+                    If check = True Then
+                        Console.WriteLine("Goal changed")
+                    End If
+                Case Else
+
+            End Select
+        End If
+    End Sub
 
 End Class

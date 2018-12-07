@@ -13,18 +13,18 @@
             TestDataPopulation()
         End If
     End Sub
-    Private Function SetName(ByVal inputName As String) As Boolean
+    Public Function SetName(ByVal inputName As String) As Boolean
         runnerName = inputName
         If runnerName <> "" Then
             Return True
         End If
         Return False
     End Function
-    Private Function SetGoalTenK(ByVal inputGoal As Integer) As Boolean
+    Public Function SetGoalTenK(ByVal inputGoal As Integer) As Boolean
         goalTenK = inputGoal
         Return True
     End Function
-    Private Function SetPw(ByVal inputPw As String) As Boolean
+    Public Function SetPw(ByVal inputPw As String) As Boolean
         pw = inputPw
         Return True
     End Function
