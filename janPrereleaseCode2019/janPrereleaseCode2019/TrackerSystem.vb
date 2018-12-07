@@ -9,14 +9,13 @@
     End Sub
     Public Function Menu() As Boolean
         Dim choice As Integer
-        Dim check As Boolean
         MenuOptions()
         choice = Console.ReadLine()
         Select Case choice
             Case 0
                 Return False
             Case 1
-                AddNewRunner(check)
+                AddNewRunner()
             Case 2
                 AddNewRun()
             Case 3
@@ -37,10 +36,11 @@
         Console.WriteLine("Choose 4 for your 10 km goal analysis")
         Console.WriteLine("Choose 0 to exit")
     End Sub
-    Public Sub AddNewRunner(ByVal passwordChecker)
+    Public Sub AddNewRunner()
         Dim newName As String
         Dim newGoal As Integer
         Dim newPw As String
+        Dim check As Boolean = False
         Do
             Console.WriteLine("Enter Your Name")
             newName = Console.ReadLine()
@@ -55,16 +55,59 @@
             Loop Until newGoal > 0
             Console.WriteLine("Enter Your Password")
             newPw = Console.ReadLine
-            Do While passwordChecker = False
+            check = PasswordChecker(newPw)
+            Do While check = False
                 Console.WriteLine("Enter a new password. It is not a strong enough password.")
                 newPw = Console.ReadLine
+                check = PasswordChecker(newPw)
             Loop
             Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
         Loop Until Accounts(AccountCount).GetName <> ""
         AccountCount += 1
     End Sub
-    Public Function PasswordChecker(ByVal newPw) As Boolean
-
+    Public Function PasswordChecker(ByVal newPw As String) As Boolean
+        Dim upC As Integer
+        Dim lowC As Integer
+        Dim num As Integer
+        Dim sym As Integer
+        Dim points As Integer
+        ' Length
+        If Len(newPw) >= 8 Then
+            points = points + 1
+        End If
+        For x = 1 To Len(newPw)
+            ' Uppercase
+            If Asc(Mid(newPw, x, 1)) > 64 And Asc(Mid(newPw, x, 1)) < 91 Then
+                upC = upC + 1
+                If upC = 1 Then
+                    points = points + 1
+                End If
+            End If
+            ' Lowercase
+            If Asc(Mid(newPw, x, 1)) > 96 And Asc(Mid(newPw, x, 1)) < 123 Then
+                lowC = lowC + 1
+                If lowC = 1 Then
+                    points = points + 1
+                End If
+            End If
+            ' Numbers
+            If Asc(Mid(newPw, x, 1)) >= 0 And Asc(Mid(newPw, x, 1)) < 48 Then
+                num = num + 1
+                If num = 1 Then
+                    points = points + 1
+                End If
+            End If
+            ' Symbols
+            If Asc(Mid(newPw, x, 1)) > 47 And Asc(Mid(newPw, x, 1)) < 58 Then
+                sym = sym + 1
+                If sym = 1 Then
+                    points = points + 1
+                End If
+            End If
+        Next
+        If points > 3 Then
+            Return True
+        End If
         Return False
     End Function
     Public Sub AddNewRun()
