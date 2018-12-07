@@ -9,13 +9,14 @@
     End Sub
     Public Function Menu() As Boolean
         Dim choice As Integer
+        Dim check As Boolean
         MenuOptions()
         choice = Console.ReadLine()
         Select Case choice
             Case 0
                 Return False
             Case 1
-                AddNewRunner()
+                AddNewRunner(check)
             Case 2
                 AddNewRun()
             Case 3
@@ -36,7 +37,7 @@
         Console.WriteLine("Choose 4 for your 10 km goal analysis")
         Console.WriteLine("Choose 0 to exit")
     End Sub
-    Public Sub AddNewRunner()
+    Public Sub AddNewRunner(ByVal passwordChecker)
         Dim newName As String
         Dim newGoal As Integer
         Dim newPw As String
@@ -53,11 +54,19 @@
                 End Try
             Loop Until newGoal > 0
             Console.WriteLine("Enter Your Password")
+            newPw = Console.ReadLine
+            Do While passwordChecker = False
+                Console.WriteLine("Enter a new password. It is not a strong enough password.")
                 newPw = Console.ReadLine
-                Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
-            Loop Until Accounts(AccountCount).GetName <> ""
-            AccountCount += 1
+            Loop
+            Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
+        Loop Until Accounts(AccountCount).GetName <> ""
+        AccountCount += 1
     End Sub
+    Public Function PasswordChecker(ByVal newPw) As Boolean
+
+        Return False
+    End Function
     Public Sub AddNewRun()
         Dim foundLocation As Integer
         foundLocation = Verify()
