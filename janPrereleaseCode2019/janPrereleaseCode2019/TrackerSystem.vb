@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class TrackerSystem
 
-    Private Accounts(9) As RunTracker
+    Private Accounts(1) As RunTracker
     Private AccountCount As Integer = 0
     Public Sub New()
         Accounts(0) = New RunTracker("Simon", "5000", "fish", True)
@@ -52,11 +52,33 @@ Public Class TrackerSystem
         Dim currentChar As Integer
         Dim addedNumber As Boolean = True
         Dim count As Integer = 0
-
+        Dim total As Integer = 2
+        Dim passwordCorrect As String
+        Dim satisfy As Boolean = 0
+        Dim counter As Integer = 1
+        Dim oldaccounts(AccountCount - 1) As RunTracker
+        For x = 0 To AccountCount - 1
+            oldaccounts(x) = Accounts(x)
+        Next
+        ReDim Accounts(AccountCount)
+        For x = 0 To AccountCount - 1
+            Accounts(x) = oldaccounts(x)
+        Next
         Console.WriteLine("Enter Your Name")
         Do
             Do
                 newName = Console.ReadLine()
+
+                While counter <> 0
+                    For x = 0 To AccountCount - 1
+                        counter = 0
+                        If newName = Accounts(x).GetName() Then
+                            Console.WriteLine("That username has already been taken. Please enter another username.")
+                            newName = Console.ReadLine()
+                            counter = 1
+                        End If
+                    Next
+                End While
                 addedNumber = True
                 For x = 1 To Len(newName)
                     currentChar = (Asc(Mid(newName, x, 1)))
@@ -67,25 +89,36 @@ Public Class TrackerSystem
                     End If
                 Next
             Loop Until addedNumber = True
+
             Do
                 Try
                     Console.WriteLine("Enter Your 10 Km goal time (in seconds)")
+
                     newGoal = Console.ReadLine
                 Catch ex As Exception
                     MsgBox("Not entered an integer")
                 End Try
             Loop Until newGoal > 0
-            Console.WriteLine("Enter Your Password")
-            newPw = Console.ReadLine
-            check = PasswordChecker(newPw)
-            Do While check = False
-                Console.WriteLine("Enter a new password. It is not a strong enough password.")
+            Do
+                Console.WriteLine("Enter Your Password")
                 newPw = Console.ReadLine
                 check = PasswordChecker(newPw)
-            Loop
+
+                Do While check = False
+                    Console.WriteLine("Enter a new password. It is not a strong enough password.")
+                    newPw = Console.ReadLine
+                    check = PasswordChecker(newPw)
+                Loop
+                Console.WriteLine("Please re enter your password (validating your password for you)")
+                passwordCorrect = Console.ReadLine()
+                If passwordCorrect <> newPw Then
+                    satisfy = 1
+                    Console.WriteLine("Your passwords do not match. Please reinput again. ")
+                End If
+            Loop Until satisfy = 0
             Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
-        Loop Until Accounts(AccountCount).GetName <> ""
-        AccountCount += 1
+            Loop Until Accounts(AccountCount).GetName <> ""
+            AccountCount += 1
     End Sub
     Public Function PasswordChecker(ByVal newPw As String) As Boolean
         Dim upC As Integer
