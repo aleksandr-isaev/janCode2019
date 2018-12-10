@@ -41,6 +41,9 @@
     Public Function GetPw() As String
         Return pw
     End Function
+    Public Function GetKmGoal() As String
+        Return goalTenK
+    End Function
     Public Sub AddRun()
         Dim value As Integer
         runs(runCount) = New Run()
@@ -120,5 +123,23 @@
         runs(2).SetSeconds(1200)
         runCount = 3
     End Sub
+    Public Sub SaveFile()
+        Dim filename As String = "c:\data.txt"
+        Dim file As System.IO.StreamWriter
+        file = My.Computer.FileSystem.OpenTextFileWriter(filename, False)
+        file.WriteLine("Name: " & GetName())
+        file.WriteLine("Password: " & GetPw())
+        file.WriteLine("10KM Goal: " & GetKmGoal())
+        For x = 0 To runCount - 1
+            file.WriteLine("Distance: " & runs(x).GetDistance / 1000)
+            file.WriteLine("Time: " & runs(x).GetSeconds / 60)
+            file.WriteLine("Speed: " & runs(x).GetSpeed)
+            file.WriteLine("Pace: " & runs(x).GetPace)
+            file.WriteLine()
+        Next
+        file.WriteLine()
+        file.Close()
+    End Sub
+
 
 End Class

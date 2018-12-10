@@ -1,4 +1,6 @@
-﻿Public Class TrackerSystem
+﻿Imports System
+Imports System.IO
+Public Class TrackerSystem
 
     Private Accounts(1) As RunTracker
     Private AccountCount As Integer = 0
@@ -25,7 +27,13 @@
             Case 5
                 Update()
             Case 6
+
                 RemoveRunner()
+
+            Case 7
+
+                Save()
+
             Case Else
                 Console.WriteLine("Not an Option")
         End Select
@@ -39,7 +47,11 @@
         Console.WriteLine("Choose 3 for your run history")
         Console.WriteLine("Choose 4 for your 10 km goal analysis")
         Console.WriteLine("Choose 5 to update data")
+
         Console.WriteLine("Choose 6 to remove a runner")
+
+        Console.WriteLine("Choose 7 to save")
+
         Console.WriteLine("Choose 0 to exit")
     End Sub
     Public Sub RemoveRunner()
@@ -62,6 +74,7 @@
         Dim total As Integer = 2
         Dim passwordCorrect As String
         Dim satisfy As Boolean = 0
+        Dim counter As Integer = 1
         Dim oldaccounts(AccountCount - 1) As RunTracker
         For x = 0 To AccountCount - 1
             oldaccounts(x) = Accounts(x)
@@ -74,6 +87,17 @@
         Do
             Do
                 newName = Console.ReadLine()
+
+                While counter <> 0
+                    For x = 0 To AccountCount - 1
+                        counter = 0
+                        If newName = Accounts(x).GetName() Then
+                            Console.WriteLine("That username has already been taken. Please enter another username.")
+                            newName = Console.ReadLine()
+                            counter = 1
+                        End If
+                    Next
+                End While
                 addedNumber = True
                 For x = 1 To Len(newName)
                     currentChar = (Asc(Mid(newName, x, 1)))
@@ -227,6 +251,11 @@ Choose 2 to update goal")
 
             End Select
         End If
+    End Sub
+    Public Sub Save()
+        For x = 0 To AccountCount - 1
+            Accounts(x).SaveFile()
+        Next
     End Sub
 
 End Class
