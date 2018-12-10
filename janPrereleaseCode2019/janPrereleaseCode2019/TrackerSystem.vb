@@ -48,6 +48,7 @@
         Dim addedNumber As Boolean = True
         Dim count As Integer = 0
         Dim total As Integer = 2
+        Dim counter As Integer = 1
         Dim oldaccounts(AccountCount - 1) As RunTracker
         For x = 0 To AccountCount - 1
             oldaccounts(x) = Accounts(x)
@@ -60,6 +61,17 @@
         Do
             Do
                 newName = Console.ReadLine()
+
+                While counter <> 0
+                    For x = 0 To AccountCount - 1
+                        counter = 0
+                        If newName = Accounts(x).GetName() Then
+                            Console.WriteLine("That username has already been taken. Please enter another username.")
+                            newName = Console.ReadLine()
+                            counter = 1
+                        End If
+                    Next
+                End While
                 addedNumber = True
                 For x = 1 To Len(newName)
                     currentChar = (Asc(Mid(newName, x, 1)))
