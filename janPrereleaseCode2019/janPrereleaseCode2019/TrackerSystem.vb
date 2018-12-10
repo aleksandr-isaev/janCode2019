@@ -24,6 +24,8 @@
                 TenKmGoal()
             Case 5
                 Update()
+            Case 6
+                RemoveRunner()
             Case Else
                 Console.WriteLine("Not an Option")
         End Select
@@ -37,7 +39,17 @@
         Console.WriteLine("Choose 3 for your run history")
         Console.WriteLine("Choose 4 for your 10 km goal analysis")
         Console.WriteLine("Choose 5 to update data")
+        Console.WriteLine("Choose 6 to remove a runner")
         Console.WriteLine("Choose 0 to exit")
+    End Sub
+    Public Sub RemoveRunner()
+        Dim name As String
+        Dim password As String
+        Console.WriteLine("What is your name?")
+        name = Console.ReadLine()
+        Console.WriteLine("What is your password?")
+        password = Console.ReadLine()
+
     End Sub
     Public Sub AddNewRunner()
         Dim newName As String
