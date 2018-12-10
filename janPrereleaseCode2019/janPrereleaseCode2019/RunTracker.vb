@@ -47,11 +47,12 @@
         Dim satisfy As Boolean = 0
         Dim distance As Integer
         Dim timing As Integer
+        Dim temp(1) As Run
         Try
             runs(runCount) = New Run()
         Catch ex As Exception
             Console.WriteLine("")
-            Dim temp(runCount - 1) As Run
+            ReDim temp(runCount - 1)
             For x = 0 To runCount - 1
                 temp(x) = runs(x)
 
