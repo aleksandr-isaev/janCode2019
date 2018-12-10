@@ -1,4 +1,6 @@
-﻿Public Class TrackerSystem
+﻿Imports System
+Imports System.IO
+Public Class TrackerSystem
 
     Private Accounts(9) As RunTracker
     Private AccountCount As Integer = 0
@@ -24,6 +26,8 @@
                 TenKmGoal()
             Case 5
                 Update()
+            Case 6
+                Save()
             Case Else
                 Console.WriteLine("Not an Option")
         End Select
@@ -37,6 +41,7 @@
         Console.WriteLine("Choose 3 for your run history")
         Console.WriteLine("Choose 4 for your 10 km goal analysis")
         Console.WriteLine("Choose 5 to update data")
+        Console.WriteLine("Choose 6 to save")
         Console.WriteLine("Choose 0 to exit")
     End Sub
     Public Sub AddNewRunner()
@@ -194,6 +199,11 @@ Choose 2 to update goal")
 
             End Select
         End If
+    End Sub
+    Public Sub Save()
+        For x = 0 To AccountCount - 1
+            Accounts(x).SaveFile()
+        Next
     End Sub
 
 End Class
