@@ -48,6 +48,8 @@
         Dim addedNumber As Boolean = True
         Dim count As Integer = 0
         Dim total As Integer = 2
+        Dim passwordCorrect As String
+        Dim satisfy As Boolean = 0
         Dim counter As Integer = 1
         Dim oldaccounts(AccountCount - 1) As RunTracker
         For x = 0 To AccountCount - 1
@@ -92,17 +94,26 @@
                     MsgBox("Not entered an integer")
                 End Try
             Loop Until newGoal > 0
-            Console.WriteLine("Enter Your Password")
-            newPw = Console.ReadLine
-            check = PasswordChecker(newPw)
-            Do While check = False
-                Console.WriteLine("Enter a new password. It is not a strong enough password.")
+            Do
+                Console.WriteLine("Enter Your Password")
                 newPw = Console.ReadLine
                 check = PasswordChecker(newPw)
-            Loop
+
+                Do While check = False
+                    Console.WriteLine("Enter a new password. It is not a strong enough password.")
+                    newPw = Console.ReadLine
+                    check = PasswordChecker(newPw)
+                Loop
+                Console.WriteLine("Please re enter your password (validating your password for you)")
+                passwordCorrect = Console.ReadLine()
+                If passwordCorrect <> newPw Then
+                    satisfy = 1
+                    Console.WriteLine("Your passwords do not match. Please reinput again. ")
+                End If
+            Loop Until satisfy = 0
             Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
-        Loop Until Accounts(AccountCount).GetName <> ""
-        AccountCount += 1
+            Loop Until Accounts(AccountCount).GetName <> ""
+            AccountCount += 1
     End Sub
     Public Function PasswordChecker(ByVal newPw As String) As Boolean
         Dim upC As Integer
