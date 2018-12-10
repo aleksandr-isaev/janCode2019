@@ -43,7 +43,23 @@
     End Function
     Public Sub AddRun()
         Dim value As Integer
-        runs(runCount) = New Run()
+        Try
+            runs(runCount) = New Run()
+        Catch ex As Exception
+            Console.WriteLine("")
+            Dim temp(runCount - 1) As Run
+            For x = 0 To runCount - 1
+                temp(x) = runs(x)
+
+            Next
+            ReDim runs(runCount)
+            For x = 0 To runCount - 1
+                runs(x) = temp(x)
+
+            Next
+            runs(runCount) = New Run()
+        End Try
+
 
         Do
             Try
