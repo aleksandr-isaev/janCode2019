@@ -1,6 +1,6 @@
 ﻿Public Class TrackerSystem
 
-    Private Accounts(9) As RunTracker
+    Private Accounts(1) As RunTracker
     Private AccountCount As Integer = 0
     Public Sub New()
         Accounts(0) = New RunTracker("Simon", "5000", "fish", True)
@@ -48,6 +48,14 @@
         Dim addedNumber As Boolean = True
         Dim count As Integer = 0
         Dim total As Integer = 2
+        Dim oldaccounts(AccountCount - 1) As RunTracker
+        For x = 0 To AccountCount - 1
+            oldaccounts(x) = Accounts(x)
+        Next
+        ReDim Accounts(AccountCount)
+        For x = 0 To AccountCount - 1
+            Accounts(x) = oldaccounts(x)
+        Next
         Console.WriteLine("Enter Your Name")
         Do
             Do
