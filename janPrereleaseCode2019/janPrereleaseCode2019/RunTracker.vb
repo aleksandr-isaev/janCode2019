@@ -43,6 +43,10 @@
     End Function
     Public Sub AddRun()
         Dim value As Integer
+        runs(runCount) = New Run()
+        Dim satisfy As Boolean = 0
+        Dim distance As Integer
+        Dim timing As Integer
         Try
             runs(runCount) = New Run()
         Catch ex As Exception
@@ -59,27 +63,33 @@
             Next
             runs(runCount) = New Run()
         End Try
-
-
         Do
-            Try
-                Console.WriteLine("Enter the DISTANCE you ran, in meters")
-                value = Console.ReadLine()
-            Catch ex As Exception
-                MsgBox("Not entered a suitable answer. Please try again. ")
-            End Try
-        Loop Until Value > 0
-        runs(runCount).SetDistance(value)
+            Do
+                Try
+                    Console.WriteLine("Enter the DISTANCE you ran, in meters")
+                    value = Console.ReadLine()
+                Catch ex As Exception
+                    MsgBox("Not entered a suitable answer. Please try again. ")
+                End Try
+            Loop Until value > 0
+            distance = value
+            runs(runCount).SetDistance(value)
 
-        Do
-            Try
-                Console.WriteLine("Enter the TIME you ran, in seconds")
-                value = Console.ReadLine()
-            Catch ex As Exception
-                MsgBox("Not entered a suitable answer. Please try again. ")
-            End Try
-        Loop Until value > 0.0 And value < 60 * 60 * 80
-        runs(runCount).SetSeconds(value)
+            Do
+                Try
+                    Console.WriteLine("Enter the TIME you ran, in seconds")
+                    value = Console.ReadLine()
+                Catch ex As Exception
+                    MsgBox("Not entered a suitable answer. Please try again. ")
+                End Try
+            Loop Until value > 0.0 And value < 60 * 60 * 80
+            timing = value
+            runs(runCount).SetSeconds(value)
+            If distance / timing >= 36.0 Then
+                satisfy = 1
+                Console.WriteLine("The data you have entered suggests that you have magically been able to run more than 36 km / h which is wonderful but we don't believe you. Please input your data again! :)")
+            End If
+        Loop Until satisfy = 0
         'runs(runCount).GetPace() 'not needed and so deleted (on version 2)
         'runs(runCount).GetSpeed()
         runCount += 1
