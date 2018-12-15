@@ -61,7 +61,9 @@ Public Class TrackerSystem
         name = Console.ReadLine()
         Console.WriteLine("What is your password?")
         password = Console.ReadLine()
+        For x = 0 To AccountCount - 1
 
+        Next
     End Sub
     Public Sub AddNewRunner()
         Dim newName As String
