@@ -20,7 +20,7 @@
         Return Convert.mps2kmph(distance / seconds)
     End Function
     Public Sub OutputRun()
-        If seconds / 60 = 1 Then
+        If seconds / 60 = 1 Then ' checks if minute or minutes
             Console.WriteLine("You ran " & distance / 1000 & " km in " & seconds / 60 & " Minute")
         Else
             Console.WriteLine("You ran " & distance / 1000 & " km in " & seconds / 60 & " Minutes")

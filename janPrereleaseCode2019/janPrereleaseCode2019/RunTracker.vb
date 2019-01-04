@@ -28,7 +28,7 @@
         pw = inputPw
         Return True
     End Function
-    Public Sub RunReview()
+    Public Sub RunReview() ' output small review of each run in account
         If runCount > 0 Then
             For x = 0 To runCount - 1
                 runs(x).OutputRun()
@@ -52,23 +52,24 @@
         Dim timing As Integer
 
         Try
-            runs(runCount) = New Run()
+            runs(runCount) = New Run() ' tries to add new run, if given error allocates more space for runs in array
         Catch ex As Exception
             Console.WriteLine("")
-            Dim temp(runCount - 1) As Run
+            Dim temp(runCount - 1) As Run ' temp runs() array
             For x = 0 To runCount - 1
-                temp(x) = runs(x)
+                temp(x) = runs(x) ' moves old runs into temp array
 
             Next
-            ReDim runs(runCount)
+            ReDim runs(runCount) ' redims main array to add extra slot
             For x = 0 To runCount - 1
-                runs(x) = temp(x)
+                runs(x) = temp(x) ' puts old runs back into new array
 
             Next
-            runs(runCount) = New Run()
+            runs(runCount) = New Run() ' adds new run
         End Try
+
         Do
-            Do
+            Do ' distance check for > 0 and data type
                 Try
                     Console.WriteLine("Enter the DISTANCE you ran, in meters")
                     value = Console.ReadLine()
@@ -79,7 +80,7 @@
             distance = value
             runs(runCount).SetDistance(value)
 
-            Do
+            Do ' time check for range and data type
                 Try
                     Console.WriteLine("Enter the TIME you ran, in seconds")
                     value = Console.ReadLine()
@@ -89,7 +90,8 @@
             Loop Until value > 0.0 And value < 60 * 60 * 80
             timing = value
             runs(runCount).SetSeconds(value)
-            If distance / timing >= 36.0 Then
+
+            If distance / timing >= 36.0 Then ' speed check
                 satisfy = 1
                 Console.WriteLine("The data you have entered suggests that you have magically been able to run more than 36 km / h which is wonderful but we don't believe you. Please input your data again! :)")
             End If
@@ -100,8 +102,8 @@
     End Sub
     Public Sub RunAnalysis()
         Dim goalSpeed As Double = Convert.mps2kmph(10000 / goalTenK)
-        If runCount = 0 Then
-            Console.WriteLine("WRONG ")
+        If runCount = 0 Then ' checks if there are any runs in the system
+            Console.WriteLine("Unable to check as no runs have been detected")
         Else
             Dim latestSpeed As Double = runs(runCount - 1).GetSpeed
             If goalSpeed > latestSpeed Then
@@ -123,13 +125,15 @@
         runs(2).SetSeconds(1200)
         runCount = 3
     End Sub
-    Public Sub SaveFile()
+    Public Sub SaveFile() ' save file function
         Dim filename As String = "c:\data.txt"
         Dim file As System.IO.StreamWriter
         file = My.Computer.FileSystem.OpenTextFileWriter(filename, False)
+        ' user details
         file.WriteLine("Name: " & GetName())
         file.WriteLine("Password: " & GetPw())
         file.WriteLine("10KM Goal: " & GetKmGoal())
+        ' run details
         For x = 0 To runCount - 1
             file.WriteLine("Distance: " & runs(x).GetDistance / 1000)
             file.WriteLine("Time: " & runs(x).GetSeconds / 60)
