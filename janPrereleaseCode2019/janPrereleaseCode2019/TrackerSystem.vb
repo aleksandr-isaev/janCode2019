@@ -1,15 +1,16 @@
-﻿Imports System
+﻿' imports for the save Function
+Imports System
 Imports System.IO
-Public Class TrackerSystem
 
-    Private Accounts(1) As RunTracker
-    Private AccountCount As Integer = 0
+Public Class TrackerSystem
+    Private Accounts(1) As RunTracker ' 2 accounts set for preset data
+    Private AccountCount As Integer = 0 ' number of accounts in use
     Public Sub New()
         Accounts(0) = New RunTracker("Simon", "5000", "fish", True)
         Accounts(1) = New RunTracker("Annie", "2500", "fish", True)
-        AccountCount = 2
+        AccountCount = 2 ' 2 set for preset data
     End Sub
-    Public Function Menu() As Boolean
+    Public Function Menu() As Boolean ' function to get input from user and run menu methods/functions
         Dim choice As Integer
         MenuOptions()
         choice = Console.ReadLine()
@@ -27,19 +28,15 @@ Public Class TrackerSystem
             Case 5
                 Update()
             Case 6
-
                 RemoveRunner()
-
             Case 7
-
                 Save()
-
             Case Else
                 Console.WriteLine("Not an Option")
         End Select
         Return True
     End Function
-    Public Sub MenuOptions()
+    Public Sub MenuOptions() ' written menu
         Console.WriteLine("")
         Console.WriteLine("---------------------------------------")
         Console.WriteLine("Choose 1 add a new runner")
@@ -47,69 +44,61 @@ Public Class TrackerSystem
         Console.WriteLine("Choose 3 for your run history")
         Console.WriteLine("Choose 4 for your 10 km goal analysis")
         Console.WriteLine("Choose 5 to update data")
-
         Console.WriteLine("Choose 6 to remove a runner")
-
         Console.WriteLine("Choose 7 to save")
-
         Console.WriteLine("Choose 0 to exit")
     End Sub
     Public Sub RemoveRunner()
-        Dim name As String
-        Dim password As String
-        Console.WriteLine("What is your name?")
-        name = Console.ReadLine()
-        Console.WriteLine("What is your password?")
-        password = Console.ReadLine()
-
+        Dim foundLocation As Integer
+        foundLocation = Verify()
+        If foundLocation > -1 Then
+            ' remove run function
+        End If
     End Sub
     Public Sub AddNewRunner()
         Dim newName As String
         Dim newGoal As Integer
         Dim newPw As String
-        Dim check As Boolean = False
-        Dim currentChar As Integer
-        Dim addedNumber As Boolean = True
+        Dim check As Boolean = False ' used for validations checks
+        Dim currentChar As Integer ' used to check for integer
         Dim count As Integer = 0
         Dim total As Integer = 2
         Dim passwordCorrect As String
-        Dim satisfy As Boolean = 0
-        Dim counter As Integer = 1
-        Dim oldaccounts(AccountCount - 1) As RunTracker
+
+        Dim oldaccounts(AccountCount - 1) As RunTracker ' temp Accounts() array
         For x = 0 To AccountCount - 1
-            oldaccounts(x) = Accounts(x)
+            oldaccounts(x) = Accounts(x) ' moves accounts to temp array
         Next
-        ReDim Accounts(AccountCount)
+        ReDim Accounts(AccountCount) ' adds extra account slot to array
         For x = 0 To AccountCount - 1
-            Accounts(x) = oldaccounts(x)
+            Accounts(x) = oldaccounts(x) ' moves old data from temp array to new array
         Next
+
         Console.WriteLine("Enter Your Name")
         Do
-            Do
-                newName = Console.ReadLine()
 
-                While counter <> 0
-                    For x = 0 To AccountCount - 1
-                        counter = 0
-                        If newName = Accounts(x).GetName() Then
-                            Console.WriteLine("That username has already been taken. Please enter another username.")
-                            newName = Console.ReadLine()
-                            counter = 1
-                        End If
-                    Next
-                End While
-                addedNumber = True
-                For x = 1 To Len(newName)
+            While check = False ' name check
+                newName = Console.ReadLine()
+                For x = 0 To AccountCount - 1
+                    If newName = Accounts(x).GetName() Then
+                        Console.WriteLine("That username has already been taken. Please enter another username.")
+                        newName = Console.ReadLine()
+                        check = False
+                    Else
+                        check = True
+                    End If
+                Next
+                For x = 1 To Len(newName) ' integer check
                     currentChar = (Asc(Mid(newName, x, 1)))
                     If currentChar > 47 And currentChar < 58 And count = 0 Then
                         Console.WriteLine("You have entered an integer as part of your name. Please try again. ")
                         count = count + 1
-                        addedNumber = False
+                        check = False
                     End If
                 Next
-            Loop Until addedNumber = True
+            End While
 
-            Do
+            Do ' input check for 10km goal
                 Try
                     Console.WriteLine("Enter Your 10 Km goal time (in seconds)")
 
@@ -118,26 +107,33 @@ Public Class TrackerSystem
                     MsgBox("Not entered an integer")
                 End Try
             Loop Until newGoal > 0
-            Do
-                Console.WriteLine("Enter Your Password")
+
+            Console.WriteLine("Enter Your Password") ' password input
+            newPw = Console.ReadLine
+            check = PasswordChecker(newPw)
+
+            Do While check = False ' strength check form Function PasswordChecker()
+                Console.WriteLine("Enter a new password. It is not a strong enough password.")
                 newPw = Console.ReadLine
                 check = PasswordChecker(newPw)
+            Loop
 
-                Do While check = False
-                    Console.WriteLine("Enter a new password. It is not a strong enough password.")
-                    newPw = Console.ReadLine
-                    check = PasswordChecker(newPw)
-                Loop
+            check = False
+            Do ' password reentry for extra validation
                 Console.WriteLine("Please re enter your password (validating your password for you)")
                 passwordCorrect = Console.ReadLine()
                 If passwordCorrect <> newPw Then
-                    satisfy = 1
                     Console.WriteLine("Your passwords do not match. Please reinput again. ")
+                    passwordCorrect = Console.ReadLine()
+                Else
+                    check = True
                 End If
-            Loop Until satisfy = 0
-            Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False)
-            Loop Until Accounts(AccountCount).GetName <> ""
-            AccountCount += 1
+            Loop Until check = True
+            Accounts(AccountCount) = New RunTracker(newName, newGoal, newPw, False) ' sends all correct data to Accounts() array
+        Loop Until Accounts(AccountCount).GetName <> ""
+        AccountCount += 1
+        Console.WriteLine("")
+        Console.WriteLine("Runner Added!")
     End Sub
     Public Function PasswordChecker(ByVal newPw As String) As Boolean
         Dim upC As Integer
@@ -145,33 +141,37 @@ Public Class TrackerSystem
         Dim num As Integer
         Dim sym As Integer
         Dim points As Integer
-        ' Length
+        ' Length check
         If Len(newPw) >= 8 Then
             points = points + 1
         End If
         For x = 1 To Len(newPw)
-            ' Uppercase
+
+            ' Uppercase check
             If Asc(Mid(newPw, x, 1)) > 64 And Asc(Mid(newPw, x, 1)) < 91 Then
                 upC = upC + 1
                 If upC = 1 Then
                     points = points + 1
                 End If
             End If
-            ' Lowercase
+
+            ' Lowercase check
             If Asc(Mid(newPw, x, 1)) > 96 And Asc(Mid(newPw, x, 1)) < 123 Then
                 lowC = lowC + 1
                 If lowC = 1 Then
                     points = points + 1
                 End If
             End If
-            ' Symbols
+
+            ' Symbols check
             If Asc(Mid(newPw, x, 1)) >= 0 And Asc(Mid(newPw, x, 1)) < 48 Then
                 sym = sym + 1
                 If sym = 1 Then
                     points = points + 1
                 End If
             End If
-            ' Numbers
+
+            ' Numbers check
             If Asc(Mid(newPw, x, 1)) > 47 And Asc(Mid(newPw, x, 1)) < 58 Then
                 num = num + 1
                 If num = 1 Then
@@ -179,7 +179,7 @@ Public Class TrackerSystem
                 End If
             End If
         Next
-        If points > 3 Then
+        If points > 3 Then ' must get at least 4 to pass strength check
             Return True
         End If
         Return False
@@ -205,20 +205,23 @@ Public Class TrackerSystem
             Accounts(foundLocation).RunAnalysis()
         End If
     End Sub
-    Public Function Verify() As Integer
+    Public Function Verify() As Integer ' verify username
         Dim inputName As String
         Dim inputPw As String
+
         Console.WriteLine("Enter Your Name")
         inputName = Console.ReadLine()
         Console.WriteLine("Enter Your Password")
         inputPw = Console.ReadLine()
+
         For x = 0 To AccountCount - 1
             If inputName = Accounts(x).GetName Then
                 If inputPw = Accounts(x).GetPw Then
-                    Return x
+                    Return x ' return location of name in array
                 End If
             End If
         Next
+
         Console.WriteLine("Incorrect Username or password")
         Return -1
     End Function
@@ -226,33 +229,41 @@ Public Class TrackerSystem
         Dim newName As String
         Dim newGoal As Integer
         Dim choice As String
-        Dim nmCheck As Integer
-        Dim check As Boolean
+        Dim nmCheck As Integer ' account number of user
+        Dim check As Boolean ' verifies if data has been entered
         Console.WriteLine("UPDATE DATA")
         nmCheck = Verify()
+
         If nmCheck > -1 Then
             Console.WriteLine("Choose 1 to update name
 Choose 2 to update goal")
             choice = Console.ReadLine()
+
             Select Case choice
+
                 Case 1
                     Console.WriteLine("Enter new name")
                     check = Accounts(nmCheck).SetName(Console.ReadLine())
                     If check = True Then
                         Console.WriteLine("Name changed")
+                    Else
+                        Console.WriteLine("Enter name again")
                     End If
+
                 Case 2
                     Console.WriteLine("Enter new goal")
                     check = Accounts(nmCheck).SetGoalTenK(Console.ReadLine())
                     If check = True Then
                         Console.WriteLine("Goal changed")
+                    Else
+                        Console.WriteLine("Enter goal again")
                     End If
                 Case Else
 
             End Select
         End If
     End Sub
-    Public Sub Save()
+    Public Sub Save() ' save to file method
         For x = 0 To AccountCount - 1
             Accounts(x).SaveFile()
         Next
