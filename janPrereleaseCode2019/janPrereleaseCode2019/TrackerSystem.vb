@@ -164,17 +164,17 @@ Public Class TrackerSystem
                     points = points + 1
                 End If
             End If
-            ' Numbers
+            ' Symbols
             If Asc(Mid(newPw, x, 1)) >= 0 And Asc(Mid(newPw, x, 1)) < 48 Then
-                num = num + 1
-                If num = 1 Then
+                sym = sym + 1
+                If sym = 1 Then
                     points = points + 1
                 End If
             End If
-            ' Symbols
+            ' Numbers
             If Asc(Mid(newPw, x, 1)) > 47 And Asc(Mid(newPw, x, 1)) < 58 Then
-                sym = sym + 1
-                If sym = 1 Then
+                num = num + 1
+                If num = 1 Then
                     points = points + 1
                 End If
             End If
