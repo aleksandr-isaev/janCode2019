@@ -112,6 +112,15 @@
             Else
                 Console.WriteLine("You have met your goal speed")
             End If
+            If latestSpeed > 40 Then
+                Console.WriteLine("Classification of the run: Olympic")
+            ElseIf latestSpeed > 30 And latestSpeed <= 40 Then
+                Console.WriteLine("Classification of the run: Advanced")
+            ElseIf latestSpeed > 12 And latestSpeed <= 30 Then
+                Console.WriteLine("Classification of the run: Average")
+            Else
+                Console.WriteLine("Classification of the run: Basic")
+            End If
             For count = 0 To runCount - 1
                 If runs(count).GetSpeed > max Then
                     max = runs(count).GetSpeed
