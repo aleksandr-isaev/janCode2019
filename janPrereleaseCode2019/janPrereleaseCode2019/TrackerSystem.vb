@@ -51,18 +51,36 @@ Public Class TrackerSystem
         Console.WriteLine("Choose 8 to remove run")
         Console.WriteLine("Choose 0 to exit")
     End Sub
-    'Public Sub RemoveRun()
-    '    Dim foundLocation As Integer
-    '    Dim accNum As Integer
-    '    foundLocation = Verify()
-
-    '    Console.WriteLine("Remove last run")
-    '        accNum = AccountCount - foundLocation
-    '        If accNum >= 0 Then
-    '            Accounts(accNum) = Accounts(accNum - 1)
-    '        End If
-
-    'End Sub
+    Public Sub RemoveRun()
+        Dim foundLocation As Integer
+        Dim choice As Char
+        Dim temp(AccountCount - 1) As RunTracker
+        foundLocation = Verify()
+        If foundLocation > -1 Then
+            Console.WriteLine("Are you sure you want to delete your account? (Y/N)")
+            choice = UCase(Console.ReadLine())
+            If choice = "Y" Then
+                'Shuffle everything below the dismissed runner one slot up (execute the disapoinment)
+                If (foundLocation + 1) - (runs(runCount) < 1 Then 'only shuffle if its not the last account
+                    For x = foundLocation + 1 To AccountCount - 1
+                        runs(x - 1) = Accounts(x)
+                    Next
+                End If
+                'transfer all info into temp array
+                For x = 0 To AccountCount - 1
+                    temp(x) = Accounts(x)
+                Next
+                'make ur accounts array 1 slot smaller
+                ReDim Accounts(AccountCount - 2)
+                'bye bye disappointment
+                AccountCount -= 1
+                'Put everything back to the accounts array and all is right with the world again
+                For x = 0 To AccountCount - 1
+                    Accounts(x) = temp(x)
+                Next
+            End If
+        End If
+    End Sub
     'Public Sub RemoveRunner()
     '    Dim foundLocation As Integer
     '    Dim choice As String
