@@ -219,6 +219,7 @@ Public Class TrackerSystem
         If foundLocation > -1 Then
             Accounts(foundLocation).RunAnalysis()
         End If
+
     End Sub
     Public Function Verify() As Integer ' verify username
         Dim inputName As String

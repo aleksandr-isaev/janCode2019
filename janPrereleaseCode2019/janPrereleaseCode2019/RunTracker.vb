@@ -101,6 +101,7 @@
         runCount += 1
     End Sub
     Public Sub RunAnalysis()
+        Dim max As Double = 0
         Dim goalSpeed As Double = Convert.mps2kmph(10000 / goalTenK)
         If runCount = 0 Then ' checks if there are any runs in the system
             Console.WriteLine("Unable to check as no runs have been detected")
@@ -111,7 +112,18 @@
             Else
                 Console.WriteLine("You have met your goal speed")
             End If
+            For count = 0 To runCount - 1
+                If runs(count).GetSpeed > max Then
+                    max = runs(count).GetSpeed
+                End If
+            Next
+            Console.WriteLine("Personal best was " & max & " km/h")
+            If goalSpeed > latestSpeed Then
+                Console.WriteLine("You are " & goalSpeed - max & "km/h away from reaching your goal which is " & (((goalSpeed * 60) / 1000) * 10 & " meters in 10 minutes"))
+            End If
         End If
+
+
     End Sub
     Private Sub TestDataPopulation()
         runs(0) = New Run
