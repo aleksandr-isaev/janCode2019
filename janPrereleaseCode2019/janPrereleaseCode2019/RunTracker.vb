@@ -58,12 +58,10 @@
             Dim temp(runCount - 1) As Run ' temp runs() array
             For x = 0 To runCount - 1
                 temp(x) = runs(x) ' moves old runs into temp array
-
             Next
             ReDim runs(runCount) ' redims main array to add extra slot
             For x = 0 To runCount - 1
                 runs(x) = temp(x) ' puts old runs back into new array
-
             Next
             runs(runCount) = New Run() ' adds new run
         End Try
@@ -79,7 +77,6 @@
             Loop Until value > 0
             distance = value
             runs(runCount).SetDistance(value)
-
             Do ' time check for range and data type
                 Try
                     Console.WriteLine("Enter the TIME you ran, in seconds")
@@ -166,7 +163,6 @@
         Dim inputTime As String
 
         OutputRuns()
-
         Console.WriteLine("Enter The Distance You Ran (m)")
         inputDist = Console.ReadLine()
         Console.WriteLine("Enter the time (s) it took you to run " & inputDist & " m")
