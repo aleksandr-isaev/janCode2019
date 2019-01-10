@@ -96,8 +96,6 @@
                 Console.WriteLine("The data you have entered suggests that you have magically been able to run more than 36 km / h which is wonderful but we don't believe you. Please input your data again! :)")
             End If
         Loop Until satisfy = 0
-        'runs(runCount).GetPace() 'not needed and so deleted (on version 2)
-        'runs(runCount).GetSpeed()
         runCount += 1
     End Sub
     Public Sub RunAnalysis()
@@ -165,7 +163,7 @@
         file.WriteLine()
         file.Close()
     End Sub
-    Public Function Verify2() As Integer ''Verifies that details match up
+    Public Function Verify2() As Integer 'Verifies that details match up
         Dim inputDist As String
         Dim inputTime As String
 
@@ -187,7 +185,6 @@
         Console.WriteLine("Distance and Time do not match")
         Return -1
     End Function
-
     Public Sub RemoveRun()
 
         Dim foundLocation As Integer
@@ -221,11 +218,10 @@
         End If
 
     End Sub
-
     Public Sub OutputRuns()
         'outputs the runs in m and s 
         '(cuz I couldn't remember the data & i bet the users dont either 
-        '& no one has time to convert shit from km & h in m & s)
+        '& no one has time to convert stuff from km & h in m & s)
         For x = 0 To runCount - 1
             Console.WriteLine(runs(x).GetDistance & "m    " & runs(x).GetSeconds & "s")
         Next

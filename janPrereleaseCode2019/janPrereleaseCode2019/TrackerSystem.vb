@@ -58,26 +58,6 @@ Public Class TrackerSystem
             Accounts(foundLocation).RemoveRun() 'sub in RunTracker class
         End If
     End Sub
-
-    'Public Sub RemoveRunner()
-    '    Dim foundLocation As Integer
-    '    Dim choice As String
-    '    Dim accNum As Integer
-    '    foundLocation = Verify()
-    '    Console.WriteLine("Are you sure you want to delete your account? (Y/N)")
-    '    choice = Console.ReadLine()
-    '    If choice = "Y" Then
-    '        accNum = AccountCount - foundLocation - 1
-    '        If accNum > 0 Then
-    '            For x = foundLocation + 1 To accNum
-    '                Accounts(x - 1) = Accounts(x)
-    '            Next
-    '        Else
-
-    '        End If
-
-    '    End If
-    'End Sub
     Public Sub RemoveRunner()
         Dim foundLocation As Integer
         Dim choice As Char
@@ -108,7 +88,6 @@ Public Class TrackerSystem
             End If
         End If
     End Sub
-
     Public Sub AddNewRunner()
         Dim newName As String
         Dim newGoal As Integer
