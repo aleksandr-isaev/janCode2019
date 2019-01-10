@@ -165,6 +165,70 @@
         file.WriteLine()
         file.Close()
     End Sub
+    Public Function Verify2() As Integer ''Verifies that details match up
+        Dim inputDist As String
+        Dim inputTime As String
 
+        OutputRuns()
+
+        Console.WriteLine("Enter The Distance You Ran (m)")
+        inputDist = Console.ReadLine()
+        Console.WriteLine("Enter the time (s) it took you to run " & inputDist & " m")
+        inputTime = Console.ReadLine()
+
+        For x = 0 To runCount - 1
+            If inputDist = runs(x).GetDistance Then
+                If inputTime = runs(x).GetSeconds Then
+                    Return x 'returns array slot number
+                End If
+            End If
+        Next
+
+        Console.WriteLine("Distance and Time do not match")
+        Return -1
+    End Function
+
+    Public Sub RemoveRun()
+
+        Dim foundLocation As Integer
+        Dim choice As Char
+        Dim temp(runCount - 1) As Run
+
+        foundLocation = Verify2()
+        If foundLocation > -1 Then
+            Console.WriteLine("Are you sure you want to delete your run? (Y/N)")
+            choice = UCase(Console.ReadLine())
+            If choice = "Y" Then
+                'Shuffle everything below the dismissed runner one slot up (execute the disapoinment)
+                If (foundLocation + 1) - (runCount - 1) < 1 Then 'only shuffle if its not the last account
+                    For x = foundLocation + 1 To runCount - 1
+                        runs(x - 1) = runs(x)
+                    Next
+                End If
+                'transfer all info into temp array
+                For x = 0 To runCount - 1
+                    temp(x) = runs(x)
+                Next
+                'make ur runs array 1 slot smaller
+                ReDim runs(runCount - 2)
+                'bye bye disappointment
+                runCount -= 1
+                'Put everything back to the runs array and all is right with the world again
+                For x = 0 To runCount - 1
+                    runs(x) = temp(x)
+                Next
+            End If
+        End If
+
+    End Sub
+
+    Public Sub OutputRuns()
+        'outputs the runs in m and s 
+        '(cuz I couldn't remember the data & i bet the users dont either 
+        '& no one has time to convert shit from km & h in m & s)
+        For x = 0 To runCount - 1
+            Console.WriteLine(runs(x).GetDistance & "m    " & runs(x).GetSeconds & "s")
+        Next
+    End Sub
 
 End Class
