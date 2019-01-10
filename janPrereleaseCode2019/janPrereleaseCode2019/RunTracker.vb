@@ -52,7 +52,7 @@
         Dim timing As Integer
 
         Try
-            runs(runCount) = New Run() ' tries to add new run, if given error allocates more space for runs in array
+            runs(runCount) = New Run() ' tries to add new run, if given error allocates more space for runs in array ONE OF THE ERRORS FOUND IN ORIGINAL CODE
         Catch ex As Exception
             Console.WriteLine("")
             Dim temp(runCount - 1) As Run ' temp runs() array
@@ -101,7 +101,7 @@
     Public Sub RunAnalysis()
         Dim max As Double = 0
         Dim goalSpeed As Double = Convert.mps2kmph(10000 / goalTenK)
-        If runCount = 0 Then ' checks if there are any runs in the system
+        If runCount = 0 Then ' checks if there are any runs in the system ONE OF THE ERRORS FOUND IN ORIGINAL CODE
             Console.WriteLine("Unable to check as no runs have been detected")
         Else
             Dim latestSpeed As Double = runs(runCount - 1).GetSpeed
@@ -129,8 +129,6 @@
                 Console.WriteLine("You are " & goalSpeed - max & "km/h away from reaching your goal which is " & (((goalSpeed * 60) / 1000) * 10 & " meters in 10 minutes"))
             End If
         End If
-
-
     End Sub
     Private Sub TestDataPopulation()
         runs(0) = New Run
