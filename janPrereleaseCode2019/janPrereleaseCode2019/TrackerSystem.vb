@@ -113,7 +113,7 @@ Public Class TrackerSystem
             While check = False ' name check
                 newName = Console.ReadLine()
                 For x = 0 To AccountCount - 1
-                    If newName = Accounts(x).GetName() Then
+                    If newName = Accounts(x).GetName() Then ' CAN COME UP ON TEST
                         Console.WriteLine("That username has already been taken. Please enter another username.")
                         newName = Console.ReadLine()
                         check = False
@@ -168,7 +168,7 @@ Public Class TrackerSystem
         Console.WriteLine("")
         Console.WriteLine("Runner Added!")
     End Sub
-    Public Function PasswordChecker(ByVal newPw As String) As Boolean
+    Public Function PasswordChecker(ByVal newPw As String) As Boolean ' CAN COME UP ON TEST
         Dim upC As Integer
         Dim lowC As Integer
         Dim num As Integer

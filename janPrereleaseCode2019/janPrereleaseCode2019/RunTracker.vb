@@ -107,6 +107,7 @@
             Else
                 Console.WriteLine("You have met your goal speed")
             End If
+
             If latestSpeed > 40 Then
                 Console.WriteLine("Classification of the run: Olympic")
             ElseIf latestSpeed > 30 And latestSpeed <= 40 Then
@@ -116,12 +117,14 @@
             Else
                 Console.WriteLine("Classification of the run: Basic")
             End If
+
             For count = 0 To runCount - 1
                 If runs(count).GetSpeed > max Then
                     max = runs(count).GetSpeed
                 End If
             Next
-            Console.WriteLine("Personal best was " & max & " km/h")
+
+            Console.WriteLine("Personal best was " & max & " km/h") ' CAN COME UP ON TEST
             If goalSpeed > latestSpeed Then
                 Console.WriteLine("You are " & goalSpeed - max & "km/h away from reaching your goal which is " & (((goalSpeed * 60) / 1000) * 10 & " meters in 10 minutes"))
             End If
