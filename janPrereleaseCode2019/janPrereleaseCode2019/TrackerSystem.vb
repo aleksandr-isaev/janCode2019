@@ -110,12 +110,11 @@ Public Class TrackerSystem
         Console.WriteLine("Enter Your Name")
         Do
 
-            While check = False ' name check
+            Do ' name check
                 newName = Console.ReadLine()
                 For x = 0 To AccountCount - 1
                     If newName = Accounts(x).GetName() Then ' CAN COME UP ON TEST
                         Console.WriteLine("That username has already been taken. Please enter another username.")
-                        newName = Console.ReadLine()
                         check = False
                     Else
                         check = True
@@ -129,7 +128,7 @@ Public Class TrackerSystem
                         check = False
                     End If
                 Next
-            End While
+            Loop Until check = True
 
             Do ' input check for 10km goal
                 Try
