@@ -273,7 +273,18 @@ Choose 2 to update goal")
             Select Case choice
 
                 Case 1
-                    Console.WriteLine("Enter new name")
+                    Do
+                        Console.WriteLine("Enter new name")
+                        newName = Console.ReadLine()
+                        For x = 0 To AccountCount - 1
+                            If newName = Accounts(x).GetName() Then ' CAN COME UP ON TEST
+                                Console.WriteLine("That username has already been taken. Please enter another username.")
+                                check = False
+                            Else
+                                check = True
+                            End If
+                        Next
+                    Loop Until check = True
                     check = Accounts(nmCheck).SetName(Console.ReadLine())
                     If check = True Then
                         Console.WriteLine("Name changed")
