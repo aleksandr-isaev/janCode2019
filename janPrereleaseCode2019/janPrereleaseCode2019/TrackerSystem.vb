@@ -133,7 +133,6 @@ Public Class TrackerSystem
             Do ' input check for 10km goal
                 Try
                     Console.WriteLine("Enter Your 10 Km goal time (in seconds)")
-
                     newGoal = Console.ReadLine
                 Catch ex As Exception
                     MsgBox("Not entered an integer")
@@ -155,8 +154,7 @@ Public Class TrackerSystem
                 Console.WriteLine("Please re enter your password (validating your password for you)")
                 passwordCorrect = Console.ReadLine()
                 If passwordCorrect <> newPw Then
-                    Console.WriteLine("Your passwords do not match. Please reinput again. ")
-                    passwordCorrect = Console.ReadLine()
+                    Console.WriteLine("Your passwords do not match. ")
                 Else
                     check = True
                 End If
